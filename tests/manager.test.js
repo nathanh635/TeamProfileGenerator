@@ -1,71 +1,47 @@
-//include inquirer package
-const inquirer = require('inquirer');
+const Employee = require('../lib/employee.js');
 
 
-function Employee(name, id, email) {
-    this.name = name;
-    this.id = id;
-    this.email = email;
-    this.getName = () => {
-        return this.name;
-    };
-    this.getId = () => {
-        return this.id;
-    };
-    this.getEmail = () => {
-        return this.email;
-    };
-    this.getRole = () => {
-        return "Employee";
-    };
+describe('Employee', () => {
+    describe('Initialization', () => {
+    it('should create an object with return the number if not a multiple of three or five', () => {
+        const employee = new Employee("Steve", 22, "steve@steveshouse.com");
 
-}
-
-// TODO: Create a function to generate markdown for README
-function generateMarkdown(data) {
-    return `# ${data.title}
-    ${renderLicenseBadge(data.license)}
-  
-    ## Description
-  
-    ${data.description}
-  
-  ## Table of Contents
-  
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [License](#License)
-  - [Contributing](#contributing)
-  - [Tests](#tests)
-  - [Questions](#questions)
-  
-    ## Installation
-  
-    ${data.installation}
-  
-    ## Usage
-  
-    ${data.usage}
-  
-    ## License
-  
-    ${renderLicenseSection(data.license)}
-    ${renderLicenseLink(data.license)}
+        //asserting that should create object if these values are passed in
+        expect(employee).toEqual({ name: "Steve", id: 22, email: "steve@steveshouse.com"});
+      });
+    });
+    describe('getRole', () => {
+        it('should return the role of the employee as "employee"', () => {
+            const employee = new Employee("Steve", 22, "steve@steveshouse.com");
     
+            //asserting that should create object if these values are passed in
+            expect(employee).getRole().toEqual("Employee");
+          });
+        });
+    describe('getName', () => {
+         it('should return the name of the employee', () => {
+            const employee = new Employee("Steve", 22, "steve@steveshouse.com");
+        
+            //asserting that should create object if these values are passed in
+            expect(employee).getName().toEqual("Steve");
+            });
+        });
+    describe('getID', () => {
+        it('should return the ID of the employee', () => {
+             const employee = new Employee("Steve", 22, "steve@steveshouse.com");
+            
+            //asserting that should create object if these values are passed in
+            expect(employee).getID().toEqual(22);
+            });
+        });
+    describe('getEmail', () => {
+            it('should return the email of the employee', () => {
+                const employee = new Employee("Steve", 22, "steve@steveshouse.com");
+                
+                //asserting that should create object if these values are passed in
+                expect(employee).getEmail().toEqual("steve@steveshouse.com");
+                });
+            });
+
+    });
   
-    ## Contributing
-  
-    ${data.contribution}
-  
-    ## Tests
-  
-    ${data.testing}
-  
-    ## Questions
-  
-    You can reach me at GitHub; my username is ${data.username} and my profile is here: https://github.com/${data.username}. 
-    You can also email me at ${data.email}. 
-    
-  
-  `;
-  };

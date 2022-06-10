@@ -1,25 +1,9 @@
 //include inquirer package
 const inquirer = require('inquirer');
-
-
-function Employee(name, id, email) {
-    this.name = name;
-    this.id = id;
-    this.email = email;
-    this.getName = () => {
-        return this.name;
-    };
-    this.getId = () => {
-        return this.id;
-    };
-    this.getEmail = () => {
-        return this.email;
-    };
-    this.getRole = () => {
-        return "Employee";
-    };
-
-}
+const Employee = require('./lib/employee');
+const Engineer = require('./lib/engineer');
+const Manager = require('./lib/manager');
+const Intern = require('./lib/intern');
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
@@ -69,3 +53,40 @@ function generateMarkdown(data) {
   
   `;
   };
+
+  function init() {
+
+      //initialize the inquirer module and ask questions
+      console.log("Please enter your team manager's information.")
+inquirer
+.prompt([
+  {
+    type: 'input',
+    message: "Manager's name: ",
+    name: 'name',
+  },
+  {
+    type: 'input',
+    message: "Employee ID#: ",
+    name: 'id',
+  },
+  {
+    type: 'input',
+    message: "Manager's email: ",
+    name: 'email',
+  },
+  {
+      type: 'input',
+      message: "Office number:",
+      name: 'office',
+    },
+
+])
+.then((data) => {
+    const manager = new Manager(data.name, data.id, data.email, data.office)
+
+}
+);
+  }
+
+  init();
