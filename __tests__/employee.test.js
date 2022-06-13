@@ -3,11 +3,13 @@ const Employee = require('../lib/employee.js');
 
 describe('Employee', () => {
     describe('Initialization', () => {
-    it('should create an object with return the number if not a multiple of three or five', () => {
+    it('should create an object with name, ID, and email', () => {
         const employee = new Employee("Steve", 22, "steve@steveshouse.com");
 
         //asserting that should create object if these values are passed in
-        expect(employee).toEqual({ name: "Steve", id: 22, email: "steve@steveshouse.com"});
+        expect(employee.name).toEqual("Steve");
+        expect(employee.id).toEqual(22);
+        expect(employee.email).toEqual("steve@steveshouse.com");
       });
     });
     describe('getRole', () => {
@@ -15,7 +17,7 @@ describe('Employee', () => {
             const employee = new Employee("Steve", 22, "steve@steveshouse.com");
     
             //asserting that should create object if these values are passed in
-            expect(employee).getRole().toEqual("Employee");
+            expect(employee.getRole()).toEqual("Employee");
           });
         });
     describe('getName', () => {
@@ -23,7 +25,7 @@ describe('Employee', () => {
             const employee = new Employee("Steve", 22, "steve@steveshouse.com");
         
             //asserting that should create object if these values are passed in
-            expect(employee).getName().toEqual("Steve");
+            expect(employee.getName()).toEqual("Steve");
             });
         });
     describe('getID', () => {
@@ -31,7 +33,7 @@ describe('Employee', () => {
              const employee = new Employee("Steve", 22, "steve@steveshouse.com");
             
             //asserting that should create object if these values are passed in
-            expect(employee).getID().toEqual(22);
+            expect(employee.getId()).toEqual(22);
             });
         });
     describe('getEmail', () => {
@@ -39,8 +41,7 @@ describe('Employee', () => {
                 const employee = new Employee("Steve", 22, "steve@steveshouse.com");
                 
                 //asserting that should create object if these values are passed in
-                expect(employee).getEmail().toEqual("steve@steveshouse.com");
-                employee.getEmail()
+                expect(employee.getEmail()).toEqual("steve@steveshouse.com");
                 });
             });
 

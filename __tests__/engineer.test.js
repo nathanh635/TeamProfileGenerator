@@ -6,15 +6,18 @@ describe('Engineer', () => {
         const engineer = new Engineer("Steve", 22, "steve@steveshouse.com", "github.com/steve");
 
         //asserting that should create object if these values are passed in
-        expect(engineer).toEqual({ name: "Steve", id: 22, email: "steve@steveshouse.com", github: "github.com/steve"});
+        expect(engineer.name).toEqual("Steve");
+        expect(engineer.id).toEqual(22);
+        expect(engineer.email).toEqual("steve@steveshouse.com");
+        expect(engineer.github).toEqual("github.com/steve")
       });
     });
     describe('getRole', () => {
-        it('should return the role of the employee as "employee"', () => {
+        it('should return the role of the engineer as "engineer"', () => {
             const engineer = new Engineer("Steve", 22, "steve@steveshouse.com", "github.com/steve");
     
             //asserting that should create object if these values are passed in
-            expect(engineer).getRole().toEqual("Engineer");
+            expect(engineer.getRole()).toEqual("Engineer");
           });
         });
     describe('getName', () => {
@@ -22,15 +25,15 @@ describe('Engineer', () => {
             const engineer = new Engineer("Steve", 22, "steve@steveshouse.com", "github.com/steve");
         
             //asserting that should create object if these values are passed in
-            expect(engineer).getName().toEqual("Steve");
+            expect(engineer.getName()).toEqual("Steve");
             });
         });
-    describe('getID', () => {
+    describe('getId', () => {
         it('should return the ID of the employee', () => {
              const engineer = new Engineer("Steve", 22, "steve@steveshouse.com", "github.com/steve");
             
             //asserting that should create object if these values are passed in
-            expect(engineer).getID().toEqual(22);
+            expect(engineer.getId()).toEqual(22);
             });
         });
     describe('getEmail', () => {
@@ -38,7 +41,7 @@ describe('Engineer', () => {
                 const engineer = new Engineer("Steve", 22, "steve@steveshouse.com", "github.com/steve");
                 
                 //asserting that should create object if these values are passed in
-                expect(engineer).getEmail().toEqual("steve@steveshouse.com");
+                expect(engineer.getEmail()).toEqual("steve@steveshouse.com");
                 });
             });
 
@@ -47,7 +50,7 @@ describe('Engineer', () => {
                     const engineer= new Engineer("Steve", 22, "steve@steveshouse.com", "github.com/steve");
                     
                     //asserting that should create object if these values are passed in
-                    expect(engineer).getEmail().toEqual("steve@steveshouse.com");
+                    expect(engineer.getGithub()).toEqual("github.com/steve");
                     });
                 });
 
