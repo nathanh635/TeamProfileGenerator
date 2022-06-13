@@ -75,7 +75,7 @@ if (data.teamMember === "Engineer") {
   addIntern();
 } else {
   let text = generateMarkdown()
-  writeToFile("index.html",text);
+  writeToFile("./dist/index.html",text);
 }
 
 });
@@ -116,7 +116,7 @@ function addEngineer() {
 .then((data) => {
   const Engineer = require('./lib/engineer');
     var engineer = new Engineer(data.name, data.id, data.email, data.github)
-    engineers.unshift(engineer);
+    engineers.push(engineer);
     e+=1;
     addTeamMember();
 })
@@ -151,7 +151,7 @@ function addIntern() {
   
 const Intern = require('./lib/intern');
     var intern = new Intern(data.name, data.id, data.email, data.school)
-    interns.unshift(intern);
+    interns.push(intern);
     f+=1;
     addTeamMember();
 })
@@ -166,6 +166,9 @@ function generateMarkdown(data) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+        <link rel="stylesheet" href="./style.css">
         <title>Team Profile</title>
     </head>
     <body>
@@ -176,13 +179,14 @@ function generateMarkdown(data) {
                 </div>
               </div>
         </header>
+
+        <div class="container">
     
-        <div class="card shadow" style="width: 18rem;">
+        
 
-        ${addManagerText(manager)}    
-        ${addEngineerText(engineers)}
-        ${addInternText(interns)}
+        ${addManagerText(manager)}    ${addEngineerText(engineers)}      ${addInternText(interns)}
 
+          </div>
           </div>
         
     </body>
@@ -197,15 +201,17 @@ function addEngineerText(engineers) {
   } else {
     let text = "";
     for (i=0; i<engineers.length; i++)
-  text += `        <div class="card-body">
-  <div class="bg-primary text-white">
+  text += `       
+  <div class="card">
+  <div class="card-body bg-primary text-white">
 <h5 class="card-title name">${engineers[i].name}</h5>
-<h6 class="card-subtitle level">Supervisor</h6>
+<i class="fa fa-glasses"></i><h6 class="card-subtitle level">Engineer</h6>
 </div>
 <div>
-<p class="card-text border id">Employee's ID #: ${engineers[i].id}</p>
-<p class="card-text border email">Email:</p><a href="mailto:${engineers[i].email}">${engineers[i].email}</a>
-<p class="card-text border"></p><a href="https://github.com/${engineers[i].username}">${engineers[i].username}</a>
+<p class="card-text">Employee's ID #: ${engineers[i].id}</p>
+<p class="card-text email d-inline">Email: </p><a href="mailto:${engineers[i].email}">${engineers[i].email}</a>
+<div class="d-block engbox">
+<p class="card-text d-inline">Github Profile: </p><a href="https://github.com/${engineers[i].github}">${engineers[i].github}</a>
 </div>
 </div>
 </div>`
@@ -220,16 +226,16 @@ function addInternText(intern) {
   } else {
     let text = "";
     for (i=0; i<interns.length; i++)
-  text += `        <div class="card-body">
-  <div class="bg-primary text-white">
+  text += `      
+  <div class="card">
+  <div class="card-body bg-primary text-white">
 <h5 class="card-title name">${interns[i].name}</h5>
-<h6 class="card-subtitle level">Intern</h6>
+<i class="fa fa-user-graduate"></i><h6 class="card-subtitle level">Intern</h6>
 </div>
 <div>
-<p class="card-text border id">Employee's ID #: ${interns[i].id}</p>
-<p class="card-text border email">Email:</p><a href="mailto:${interns[i].email}">${interns[i].email}</a>
-<p class="card-text border">School: ${interns[i].school}</p>
-</div>
+<p class="card-text">Employee's ID #: ${interns[i].id}</p>
+<p class="card-text email d-inline">Email:</p><a href="mailto:${interns[i].email}">${interns[i].email}</a>
+<p class="card-text">School: ${interns[i].school}</p>
 </div>
 </div>`
 
@@ -238,16 +244,16 @@ return text;
 }
 
 function addManagerText(manager) {
-  let text = `        <div class="card-body">
-  <div class="bg-primary text-white">
+  let text = `       
+  <div class="card">
+  <div class="card-body bg-primary text-white">
 <h5 class="card-title name">${manager.name}</h5>
-<h6 class="card-subtitle level">Manager</h6>
+<i class="fa fa-mug-hot"></i><h6 class="card-subtitle level">Manager</h6>
 </div>
 <div>
-<p class="card-text border id">Employee's ID #: ${manager.id}</p>
-<p class="card-text border email">Email:</p><a href="mailto:${manager.email}">${manager.email}</a>
-<p class="card-text border">Office #: ${manager.office}</p>
-</div>
+<p class="card-text">Employee's ID #: ${manager.id}</p>
+<p class="card-text d-inline email">Email: </p><a href="mailto:${manager.email}">${manager.email}</a>
+<p class="card-text">Office #: ${manager.office}</p>
 </div>
 </div>`
 

@@ -1,0 +1,53 @@
+.card {
+    width: 250px;
+    margin: 20px;
+    box-shadow: 10px 10px 5px 0px grey;
+   
+     border-radius: 10px;
+}
+
+a {
+    display: inline;
+}
+
+p {
+    padding: 10px;
+    margin: 0px;
+}
+
+/* .card-title {
+  display: inline;
+}*/
+
+.card-subtitle {
+  display: inline;
+  padding: 5px;
+} 
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+     flex-direction: row;
+     justify-content: space-around;
+
+}
+
+.card-body {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 5px;
+    padding-left: 10px;
+}
+
+svg {
+    display: inline;
+    color: white;
+    background-color: white;
+    width: 20px;
+}
+
+.engbox {
+    padding: 10px;
+    padding-left: 0px;
+    margin: 0px;
+}
