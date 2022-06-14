@@ -17,7 +17,6 @@ describe('Employee', () => {
         it('should return the role of the intern as "Intern"', () => {
             const intern = new Intern("Steve", 22, "steve@steveshouse.com", "University of Waterloo");
     
-            //asserting that should create object if these values are passed in
             expect(intern.getRole()).toEqual("Intern");
           });
         });
@@ -25,15 +24,13 @@ describe('Employee', () => {
          it('should return the name of the employee', () => {
             const intern = new Intern("Steve", 22, "steve@steveshouse.com", "University of Waterloo");
         
-            //asserting that should create object if these values are passed in
             expect(intern.getName()).toEqual("Steve");
             });
         });
     describe('getId', () => {
         it('should return the ID of the intern', () => {
             const intern = new Intern("Steve", 22, "steve@steveshouse.com", "University of Waterloo");
-            
-            //asserting that should create object if these values are passed in
+
             expect(intern.getId()).toEqual(22);
             });
         });
@@ -41,7 +38,6 @@ describe('Employee', () => {
             it('should return the email of the employee', () => {
                 const intern = new Intern("Steve", 22, "steve@steveshouse.com", "University of Waterloo");
                 
-                //asserting that should create object if these values are passed in
                 expect(intern.getEmail()).toEqual("steve@steveshouse.com");
                 });
             });
@@ -49,7 +45,6 @@ describe('Employee', () => {
                 it('should return the school of the intern', () => {
                     const intern = new Intern("Steve", 22, "steve@steveshouse.com", "University of Waterloo");
                     
-                    //asserting that should create object if these values are passed in
                     expect(intern.getSchool()).toEqual("University of Waterloo");
                     });
                 });

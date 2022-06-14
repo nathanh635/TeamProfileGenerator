@@ -2,18 +2,22 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-//include all classes
+//include employee class
 const Employee = require('./lib/employee');
-const Manager = require('./lib/manager');
-let manager = new Manager();
-
 
 //set array indexes to 0
 
 let e = 0;
 let f = 0;
+
+//set empty arrays of employees
+let managers = [];
 let engineers = [];
 let interns = [];
+
+//set parameters to check ID numbers and make sure there are no duplicates
+let idNums = [];
+let idUsed = false;
 
 //initialize the program 
 function init() {
@@ -40,15 +44,17 @@ name: 'email',
 {
   type: 'input',
   message: "Office number:",
-  name: 'office',
+  name: 'officeNumber',
 },
 
 ])
 .then((data) => {
-manager.name = data.name;
-manager.id = data.id;
-manager.email = data.email;
-manager.office = data.office;
+const Manager = require('./lib/manager');
+//If I didn't have a global variable for manager, it wasn't accessible in other function blocks of code... so I added it to an array as well
+let manager = new Manager(data.name, data.id, data.email, data.officeNumber);
+managers.push(manager);
+//Add id number to array of id numbers
+idNums.push(manager.id);
 })
 
   .then(() => {
@@ -58,7 +64,10 @@ manager.office = data.office;
   })
 }
 
+//main menu to add team members
 function addTeamMember() {
+  //reset idUsed variable so it can catch if more duplicates are identified
+  idUsed = false;
   inquirer
 .prompt([
 {
@@ -69,6 +78,7 @@ function addTeamMember() {
 },
 ])
 .then((data) => {
+  //send user to appropriate inquirer block based on response.
 if (data.teamMember === "Engineer") {
   addEngineer();
 } else if (data.teamMember === "Intern") {
@@ -88,6 +98,7 @@ function writeToFile(fileName, text) {
   )
 }
 
+//entering in engineer's information
 function addEngineer() {
   inquirer
 .prompt([
@@ -114,14 +125,30 @@ function addEngineer() {
 
 ])
 .then((data) => {
+
+  //check if ID numbers have been duplicated
+  for (let i = 0; i< idNums.length; i++) {
+    if (data.id == idNums[i]) {
+      console.log("ID Number already used; no changes made. Please use a new ID number for the employee.");
+      idUsed = true;
+    }
+  }
+  //if ID number was already used, send back to menu. Otherwise, add employee to engineers array and go back to menu.
+  if (idUsed ===true) {
+    addTeamMember();
+  } else {
   const Engineer = require('./lib/engineer');
     var engineer = new Engineer(data.name, data.id, data.email, data.github)
+
     engineers.push(engineer);
     e+=1;
     addTeamMember();
+  }
+
 })
 }
 
+//request intern's info
 function addIntern() {
   inquirer
 .prompt([
@@ -148,12 +175,23 @@ function addIntern() {
 
 ])
 .then((data) => {
-  
+    //check if ID numbers have been duplicated
+  for (let i = 0; i< idNums.length; i++) {
+    if (data.id == idNums[i]) {
+      console.log("ID Number already used; no changes made. Please use a new ID number for the employee.");
+      idUsed = true;
+    }
+  }
+    //if ID number was already used, send back to menu. Otherwise, add employee to engineers array and go back to menu.
+  if (idUsed ===true) {
+    addTeamMember();
+  } else {
 const Intern = require('./lib/intern');
     var intern = new Intern(data.name, data.id, data.email, data.school)
     interns.push(intern);
     f+=1;
     addTeamMember();
+  }
 })
 }
 
@@ -184,7 +222,7 @@ function generateMarkdown(data) {
     
         
 
-        ${addManagerText(manager)}    ${addEngineerText(engineers)}      ${addInternText(interns)}
+        ${addManagerText(managers[0])}    ${addEngineerText(engineers)}      ${addInternText(interns)}
 
           </div>
           </div>
@@ -195,17 +233,19 @@ function generateMarkdown(data) {
   `;
   };
 
+  //add the cards for the engineers, send back a blank string if there are no engineers
 function addEngineerText(engineers) {
   if (e===0) {
     return "";
   } else {
     let text = "";
+    //loop through the engineers array, adding a card for each one.
     for (i=0; i<engineers.length; i++)
   text += `       
   <div class="card">
   <div class="card-body bg-primary text-white">
 <h5 class="card-title name">${engineers[i].name}</h5>
-<i class="fa fa-glasses"></i><h6 class="card-subtitle level">Engineer</h6>
+<i class="fa fa-glasses"></i><h6 class="card-subtitle level">${engineers[i].getRole()}</h6>
 </div>
 <div>
 <p class="card-text">Employee's ID #: ${engineers[i].id}</p>
@@ -220,7 +260,8 @@ return text;
 }
 }
 
-function addInternText(intern) {
+  //add the cards for the interns, send back a blank string if there are no interns
+function addInternText(interns) {
   if (f===0) {
     return "";
   } else {
@@ -230,7 +271,7 @@ function addInternText(intern) {
   <div class="card">
   <div class="card-body bg-primary text-white">
 <h5 class="card-title name">${interns[i].name}</h5>
-<i class="fa fa-user-graduate"></i><h6 class="card-subtitle level">Intern</h6>
+<i class="fa fa-user-graduate"></i><h6 class="card-subtitle level">${interns[i].getRole()}</h6>
 </div>
 <div>
 <p class="card-text">Employee's ID #: ${interns[i].id}</p>
@@ -243,21 +284,23 @@ return text;
 }
 }
 
+//add the card for the manager
 function addManagerText(manager) {
   let text = `       
   <div class="card">
   <div class="card-body bg-primary text-white">
 <h5 class="card-title name">${manager.name}</h5>
-<i class="fa fa-mug-hot"></i><h6 class="card-subtitle level">Manager</h6>
+<i class="fa fa-mug-hot"></i><h6 class="card-subtitle level">${manager.getRole()}</h6>
 </div>
 <div>
 <p class="card-text">Employee's ID #: ${manager.id}</p>
 <p class="card-text d-inline email">Email: </p><a href="mailto:${manager.email}">${manager.email}</a>
-<p class="card-text">Office #: ${manager.office}</p>
+<p class="card-text">Office #: ${manager.officeNumber}</p>
 </div>
 </div>`
 
 return text;
 }
 
+//run the init command on startup
   init();
