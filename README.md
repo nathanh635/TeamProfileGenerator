@@ -63,6 +63,7 @@
   
 ## Links
 
-  Repository: https://github.com/nathanh635/README-Generator
-  Video Walkthrough: https://drive.google.com/drive/folders/1EgsL4t-Exp1ZUehaEIwEXGDr-bvPiE7_?usp=sharing
+  Repository: https://github.com/nathanh635/TeamProfileGenerator
+  
+  Video Walkthrough: https://drive.google.com/drive/folders/1n0r99376H1KOeBIlQ97eV65T6NSx-gjr?usp=sharing
 
